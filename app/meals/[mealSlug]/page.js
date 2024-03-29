@@ -5,6 +5,10 @@ import { getMeal } from "@/backend/lib/meals";
 function MealDetailsPage({ params }) {
   const meal = getMeal(params.mealSlug);
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
+
+  if (!meal) {
+    notFound();
+  }
   return (
     <>
       <header className={classes.header}>
