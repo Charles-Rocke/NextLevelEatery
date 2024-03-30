@@ -7,7 +7,8 @@ import { saveMeal } from "./meals";
 function isInvalidText() {
   return !text || text.trim() === "";
 }
-async function shareMeal(formData) {
+
+async function shareMeal(prevState, formData) {
   const meal = {
     title: formData.get("title"),
     summary: formData.get("summary"),
@@ -27,7 +28,9 @@ async function shareMeal(formData) {
     !meal.image ||
     meal.image.size === 0
   ) {
-    throw new Error("Invalid input");
+    return {
+      message: "Error: Invalid input.",
+    };
   }
   await saveMeal(meal);
   redirect("/meals");
