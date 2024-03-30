@@ -1,10 +1,11 @@
 "use server";
 import { redirect } from "next/navigation";
 import { saveMeal } from "./meals";
+import { revalidatePath } from "next/cache";
 
 // used for creating server side actions
 
-function isInvalidText() {
+function isInvalidText(text) {
   return !text || text.trim() === "";
 }
 
@@ -33,6 +34,8 @@ async function shareMeal(prevState, formData) {
     };
   }
   await saveMeal(meal);
+  // revalidatePath("/", "layout"); // will revalidate all pages of entire website
+  revalidatePath("/meals"); // will revalidate the meal caches when data changes
   redirect("/meals");
 }
 
