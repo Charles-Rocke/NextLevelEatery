@@ -43,6 +43,7 @@ function ImagePicker({ label, name }) {
           name={name}
           ref={imageInputRef}
           onChange={handleImageChange}
+          required
           // multiple // if you want the user to select multiple files
         />
         <button
