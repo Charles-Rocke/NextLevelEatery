@@ -2,6 +2,19 @@ import Image from "next/image";
 import classes from "./page.module.css";
 import { getMeal } from "@/backend/lib/meals";
 
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
 function MealDetailsPage({ params }) {
   const meal = getMeal(params.mealSlug);
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
